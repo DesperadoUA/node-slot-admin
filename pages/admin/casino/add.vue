@@ -23,7 +23,7 @@
 <script>
 import commonAdd from '~/components/templates/commonAdd.vue'
     export default {
-        name: "singleCasinoAdd",
+        name: "singleCasinoAdd", 
         layout: 'admin',
         components: {commonAdd},
         mounted() {   

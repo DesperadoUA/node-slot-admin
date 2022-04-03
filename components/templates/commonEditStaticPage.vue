@@ -70,12 +70,19 @@
                                 :action = 'action'
                                 :action_key = '"thumbnail"' />
                     <MM_Media_Library />
+                    <MM_Multiple_Input_Text 
+                                :value = 'data.faq'
+                                :action = 'action' 
+                                :title = '"Faq"' 
+                                :action_key = '"faq"'
+                    />
            </v-col>
       </v-row>
     </v-container>
   </div>
 </template>
 <script>
+import MM_Multiple_Input_Text from '~/components/lib/MM_Multiple_Input_Text'
 import MM_Input from '~/components/lib/MM_Input'
 import MM_Textarea from '~/components/lib/MM_Textarea'
 import MM_Rich_Text from '~/components/lib/MM_Rich_Text'
@@ -86,7 +93,7 @@ import MM_Media_Library from '~/components/lib/MM_Media_Library'
     export default {
         name: "commonEditStaticPage",
         props: ['data', 'action'],
-        components:{MM_Input, MM_Textarea, MM_Rich_Text, MM_Date, MM_Options, MM_Image, MM_Media_Library},
+        components:{MM_Input, MM_Textarea, MM_Rich_Text, MM_Date, MM_Options, MM_Image, MM_Media_Library,  MM_Multiple_Input_Text},
         data(){
           return {
             current_title: ''

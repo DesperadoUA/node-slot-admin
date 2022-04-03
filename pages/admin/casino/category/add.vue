@@ -32,7 +32,7 @@ import commonAdd from '~/components/templates/commonAdd.vue'
                status: 'hide',
                lang: 'ru',
                post_type: 'casino/category',
-               slug: 'casino/category',
+               slug: 'casinos',
                meta_title: '',
                description: '',
                keywords: '',

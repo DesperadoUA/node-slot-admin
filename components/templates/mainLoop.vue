@@ -50,20 +50,10 @@
             return {
                 cards: [
                     {title: 'Static Pages', thumbnail: 'https://admin.onlinecasino.ua/img/static_page.png', link: '/admin/static-pages'},
-                    {title: 'Casino', thumbnail: 'https://admin.onlinecasino.ua/img/casino.png', link: '/admin/casino'},
-                    {title: 'Poker', thumbnail: 'https://admin.onlinecasino.ua/img/blog.png', link: '/admin/poker'},
-                    {title: 'Games', thumbnail: 'https://admin.onlinecasino.ua/img/slots.png', link: '/admin/game'},
-                    {title: 'Country', thumbnail: 'https://admin.onlinecasino.ua/img/slots.png', link: '/admin/country'},
-                    {title: 'Currency', thumbnail: 'https://admin.onlinecasino.ua/img/slots.png', link: '/admin/currency'},
-                    {title: 'Bonuses', thumbnail: 'https://admin.onlinecasino.ua/img/bonuses.png', link: '/admin/bonus'},
-                    {title: 'Payments', thumbnail: 'https://admin.onlinecasino.ua/img/payments.png', link: '/admin/payment'},
-                    {title: 'Lang', thumbnail: 'https://admin.onlinecasino.ua/img/news.png', link: '/admin/lang'},
-                    {title: 'Licenses', thumbnail: 'https://admin.onlinecasino.ua/img/news.png', link: '/admin/Licenses'},
-                    {title: 'Vendors', thumbnail: 'https://admin.onlinecasino.ua/img/vendors.png', link: '/admin/vendor'},
-                    {title: 'Technology', thumbnail: 'https://admin.onlinecasino.ua/img/vendors.png', link: '/admin/technology'},
-                    {title: 'Type payment', thumbnail: 'https://admin.onlinecasino.ua/img/vendors.png', link: '/admin/type-payment'},
                     {title: 'Settings', thumbnail: 'https://admin.onlinecasino.ua/img/settings.png', link: '/admin/settings'},
                     {title: 'Options', thumbnail: 'https://admin.onlinecasino.ua/img/options.png', link: '/admin/options'},
+                    {title: 'Casino', thumbnail: 'https://admin.onlinecasino.ua/img/casino.png', link: '/admin/casino'},
+                    {title: 'Games', thumbnail: 'https://admin.onlinecasino.ua/img/slots.png', link: '/admin/game'}
                 ]
             }
         },

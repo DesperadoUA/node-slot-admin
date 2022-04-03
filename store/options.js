@@ -21,10 +21,12 @@ export const actions = {
     async setPages({commit}, data) {
         const result = await DAL_Options.getPages(data)
         if(result.data.confirm === 'ok') commit('setPages', result.data)
+        else this.$router.replace('/')
     },
     async setCurrentPage({commit}, data) {
         const result = await DAL_Options.getPageById(data)
         if(result.data.confirm === 'ok')  commit('setCurrentPage', result.data.body)
+        else this.$router.replace('/')
     },
     changeStateCurrentPage({commit}, data){
         commit('changeStateCurrentPage', data)

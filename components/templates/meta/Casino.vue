@@ -86,42 +86,6 @@
                     :title = '"Reviews"' 
                     :action_key = '"reviews"'
                     />
-                <MM_Rating
-                        :value = 'data.reliability'
-                        :action = 'action'
-                        :title = '"Надежность"'
-                        :action_key = '"reliability"'
-                />
-                <MM_Rating
-                        :value = 'data.convenience_payments'
-                        :action = 'action'
-                        :title = '"Удобство платежей"'
-                        :action_key = '"convenience_payments"'
-                />
-                <MM_Rating
-                        :value = 'data.interface'
-                        :action = 'action'
-                        :title = '"Интерфейс"'
-                        :action_key = '"interface"'
-                />
-                <MM_Rating
-                        :value = 'data.support'
-                        :action = 'action'
-                        :title = '"Поддержка"'
-                        :action_key = '"support"'
-                />
-                <MM_Rating
-                        :value = 'data.popularity'
-                        :action = 'action'
-                        :title = '"Популярность"'
-                        :action_key = '"popularity"'
-                />
-                <MM_Rating
-                        :value = 'data.shares'
-                        :action = 'action'
-                        :title = '"Бонусы и акции"'
-                        :action_key = '"shares"'
-                />
             </v-col>
         </v-row>
     </v-container>

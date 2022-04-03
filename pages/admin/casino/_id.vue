@@ -11,7 +11,7 @@
     <postRelative v-if='data.body' 
                      :data = "data.body"
                      :action = 'POST_TYPE + "/changeStateCurrentPost"'>
-    </postRelative> 
+    </postRelative>
     <v-container>
         <v-row>
           <v-col class="offset-1 col-10 mt-5 mb-10">

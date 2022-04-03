@@ -56,6 +56,7 @@ export const actions = {
                                     .setData(data)
                                     .get()
         if(result.data.confirm === 'ok') commit('setPosts', result.data)
+        else this.$router.replace('/')
     },
     async setCurrentPost({commit}, data) {
         const request = new DAL_Builder()
@@ -64,6 +65,7 @@ export const actions = {
                                     .setData(data)
                                     .get()
         if(result.data.confirm === 'ok')  commit('setCurrentPost', result.data.body)
+        else this.$router.replace('/')
     },
     changeStateCurrentPost({commit}, data) {
         commit('changeStateCurrentPost', data)
@@ -87,13 +89,15 @@ export const actions = {
             commit('setPosts', result.data)
             commit('setPaginationPage', pageData)
         } 
+        else this.$router.replace('/')
     },
     async updateCurrentPost({commit}, data) {
         const request = new DAL_Builder()
-        await request.postType(POST_TYPE)
+        const result = await request.postType(POST_TYPE)
                      .url('update')
                      .setData(data)
                      .get()
+        if(result.data.confirm !== 'ok') this.$router.replace('/')      
     },
     async addNewPost({commit}, data) {
         const request = new DAL_Builder()
@@ -104,6 +108,7 @@ export const actions = {
         if(result.data.confirm === 'ok') {
             commit('setInsert', result.data.insert_id)
         }
+        else this.$router.replace('/')
     },
     async deleteCurrentPost({commit}, data) {
         const request = new DAL_Builder()
@@ -114,6 +119,7 @@ export const actions = {
         if(result.data.confirm === 'ok') {
             commit('setDeleteCurrentPost', true)
         }
+        else this.$router.replace('/')
     }
 }
 export const getters = {
