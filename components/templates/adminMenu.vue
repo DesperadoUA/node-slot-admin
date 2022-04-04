@@ -10,7 +10,8 @@
         <v-btn text exact
                class="font-podkova-bold nav-link"
                v-for="link in links"
-               :key="link.title" :to="link.url"
+               :key="link.title" 
+               :to="link.url"
         >
           {{link.title}}
         </v-btn>
@@ -24,104 +25,55 @@
       </v-toolbar-items>
     </v-app-bar>
     <v-navigation-drawer app temporary
-                         v-model="drawer" class="grey darken-4" color="deep-orange darken-2">
+                         v-model="drawer" 
+                         class="grey darken-4" 
+                         color="deep-orange darken-2">
       <v-container>
-        <v-layout class="mt-5 mb-5" wrap>
+        <v-layout class="mt-5" wrap>
           <v-btn
-                  class="deep-orange darken-2 justify-start display_block mb-5 font-podkova-bold"
+           v-for="link in commonLinks"
+               :key="link.title" :to="link.url"
+                  class="deep-orange darken-2 justify-start display_block mb-2 font-podkova-bold"
                   dark
                   exact
-                  no-prefetch
-                  to="/admin">
-            <v-icon left color="white">mdi-bank</v-icon>
-            Main
-          </v-btn>
-          <v-btn
-                  class="deep-orange darken-2 justify-start display_block mb-5 font-podkova-bold"
-                  dark
-                  no-prefetch
-                  to="/admin/settings">
-            <v-icon left color="white">mdi-message-draw</v-icon>
-            Settings
-          </v-btn>
-          <v-btn
-                  class="deep-orange darken-2 justify-start display_block mb-5 font-podkova-bold"
-                  dark
-                  no-prefetch
-                  to="/admin/static-pages">
-            <v-icon left color="white">mdi-checkbox-multiple-blank</v-icon>
-            Static Pages
-          </v-btn>
-          <v-btn
-                  class="deep-orange darken-2 justify-start display_block mb-5 font-podkova-bold"
-                  dark
-                  no-prefetch
-                  to="/admin/options">
-            <v-icon left color="white">mdi-share-variant</v-icon>
-            Options
+                  no-prefetch>
+            <v-icon left color="white">{{link.icon}}</v-icon>
+            {{link.title}}
           </v-btn>
           <v-menu
                   transition="slide-y-transition"
                   bottom
                   no-prefetch
                   class="d-block"
+                  v-for="item in postTypes" 
+                  :key="item.title"
           >
             <template v-slot:activator="{ on, attrs }">
               <v-btn
-                      class="deep-orange darken-2 justify-start display_block font-podkova-bold"
+                      class="deep-orange darken-2 justify-start display_block font-podkova-bold mb-2"
                       dark
                       v-bind="attrs"
                       v-on="on"
               >
                 <v-icon left>mdi-folder-multiple-outline</v-icon>
-                Casino
+               {{item.title}}
               </v-btn>
             </template>
             <v-list>
               <v-list-item
                       no-prefetch
                       class="font-podkova-bold"
-                      v-for="(item, i) in casinoPage"
-                      :key="i" :to="item.link"
+                      v-for="(link, i) in item.links"
+                      :key="i" :to="link.url"
               >
                 <v-list-item-title>
-                  {{ item.title }}
-                </v-list-item-title>
-              </v-list-item>
-            </v-list>
-          </v-menu>
-          <v-menu
-                  transition="slide-y-transition"
-                  bottom
-                  no-prefetch
-                  class="d-block"
-          >
-            <template v-slot:activator="{ on, attrs }">
-              <v-btn
-                      class="deep-orange mt-5 darken-2 justify-start display_block font-podkova-bold"
-                      dark
-                      v-bind="attrs"
-                      v-on="on"
-              >
-                <v-icon left>mdi-folder-multiple-outline</v-icon>
-                Games
-              </v-btn>
-            </template>
-            <v-list>
-              <v-list-item
-                      no-prefetch
-                      class="font-podkova-bold"
-                      v-for="(item, i) in slotsPage"
-                      :key="i" :to="item.link"
-              >
-                <v-list-item-title>
-                  {{ item.title }}
+                  {{ link.title }}
                 </v-list-item-title>
               </v-list-item>
             </v-list>
           </v-menu>
         </v-layout>
-        <v-layout class="justify-space-around mt-3 align-center">
+        <v-layout class="justify-space-around align-center">
           <v-btn class="deep-orange darken-2 display_block justify-start" color="deep-orange darken-2 font-podkova-bold"
                  @click="logout">
             <v-icon left color="white">mdi-logout</v-icon>
@@ -134,32 +86,53 @@
 </template>
 
 <script>
+    import Guards from '~/guards/index.js'
+    const commonLinks = [
+      {title:'MAIN', url:'/admin', icon:'mdi-bank', type: 'common'},
+      {title:'SETTINGS', url:'/admin/settings', icon:'mdi-message-draw', type: 'setting'},
+      {title:'STATIC PAGES', url:'/admin/static-pages', icon:'mdi-checkbox-multiple-blank', type: 'page'},
+      {title:'OPTIONS', url:'/admin/options', icon:'mdi-share-variant', type: 'option'}
+    ]
     export default {
         name: "AdminMenu",
         data(){
             return {
                 drawer: false,
+                commonLinks: commonLinks,
                 links: [
-                    {title:'MAIN', url:'/admin', icon:'mdi-bank'},
-                    {title:'SETTINGS', url:'/admin/settings', icon:'mdi-message-draw'},
-                    {title:'STATIC PAGES', url:'/admin/static-pages', icon:'mdi-checkbox-multiple-blank'},
-                    {title:'OPTIONS', url:'/admin/options', icon:'mdi-share-variant'},
-                    {title:'CASINO', url:'/admin/casino', icon:'mdi-cash-usd'},
-                    {title:'GAMES', url:'/admin/game', icon:'mdi-gamepad-variant'}
+                  ...commonLinks,
+                  {title:'CASINO', url:'/admin/casino', icon:'mdi-cash-usd', type: 'casino'},
+                  {title:'GAMES', url:'/admin/game', icon:'mdi-gamepad-variant', type: 'game'}
                 ],
-                casinoPage: [
-                    { title: 'All casino', link: '/admin/casino' },
-                    { title: 'Add casino', link: '/admin/casino/add' },
-                    { title: 'All category casino', link: '/admin/casino/category' },
-                    { title: 'Add category casino', link: '/admin/casino/category/add' }
-                ],
-                slotsPage: [
-                    { title: 'All games', link: '/admin/game' },
-                    { title: 'Add games', link: '/admin/game/add' },
-                    { title: 'All category games', link: '/admin/game/category' },
-                    { title: 'Add category games', link: '/admin/game/category/add' }
+                postTypes: [
+                  {
+                    title: 'Casinos',
+                    type: 'casino',
+                    links: [
+                      { title: 'All casino', url: '/admin/casino'},
+                      { title: 'Add casino', url: '/admin/casino/add'},
+                      { title: 'All category casino', url: '/admin/casino/category'},
+                      { title: 'Add category casino', url: '/admin/casino/category/add'}
+                    ]
+                  },
+                  {
+                    title: 'Games',
+                    type: 'game',
+                    links: [
+                      { title: 'All games', url: '/admin/game' },
+                      { title: 'Add games', url: '/admin/game/add' },
+                      { title: 'All category games', url: '/admin/game/category' },
+                      { title: 'Add category games', url: '/admin/game/category/add' }
+                    ]
+                  }
                 ]
             }
+        },
+        mounted(){
+          const user = this.$store.getters['user/getUser']
+          this.commonLinks = Guards.checkLinks(this.commonLinks, user.role)
+          this.links = Guards.checkLinks(this.links, user.role)
+          this.postTypes = Guards.checkLinks(this.postTypes, user.role)
         },
         methods: {
             async logout(){
