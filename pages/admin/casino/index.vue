@@ -80,6 +80,7 @@
    import TotalPosts from '~/components/templates/totalPosts'
    import MM_Paginations from '~/components/lib/MM_Paginations'
    import Search from '~/components/templates/search.vue'
+   import Guards from '~/guards'
   
   export default {
         name: "casino",
@@ -89,6 +90,7 @@
             this.data.ru.posts = []
             this.data.ua.posts = []
             const user = this.$store.getters['user/getUser']
+            if(!Guards.checkRouts(this.type, user.role)) this.$router.replace('/admin')
             const page = this.$store.getters[this.POST_TYPE + '/getPage']
             const dataRu = {
                 session: user.session,
@@ -134,7 +136,8 @@
                   }
               },
               tab: null,
-              numnerPostOnPage: 8
+              numnerPostOnPage: 8,
+              type: 'casino'
           }
         },
         computed: {

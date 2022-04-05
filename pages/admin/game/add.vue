@@ -22,11 +22,14 @@
 
 <script>
 import commonAdd from '~/components/templates/commonAdd.vue'
+import Guards from '~/guards'
     export default {
         name: "singleGameAdd",
         layout: 'admin',
         components: {commonAdd},
         mounted() {   
+           const user = this.$store.getters['user/getUser']
+           if(!Guards.checkRouts(this.type, user.role)) this.$router.replace('/admin')
            this.data.body = {
                title:  '',
                status: 'hide',
@@ -50,7 +53,8 @@ import commonAdd from '~/components/templates/commonAdd.vue'
               data:{
                 body: undefined
               },
-              POST_TYPE: 'game'
+              POST_TYPE: 'game',
+              type: 'game'
           }
         },
         methods: {

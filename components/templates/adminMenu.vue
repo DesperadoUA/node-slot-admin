@@ -86,7 +86,7 @@
 </template>
 
 <script>
-    import Guards from '~/guards/index.js'
+    import Guards from '~/guards'
     const commonLinks = [
       {title:'MAIN', url:'/admin', icon:'mdi-bank', type: 'common'},
       {title:'SETTINGS', url:'/admin/settings', icon:'mdi-message-draw', type: 'setting'},

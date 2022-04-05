@@ -61,15 +61,18 @@
 
 <script>
     import OptionsLoop from '~/components/templates/optionsLoop'
+    import Guards from '~/guards'
     export default {
         name: "settings",
         layout: 'admin',
         component: {OptionsLoop},
         async mounted() {
+            const user = this.$store.getters['user/getUser']
+            if(!Guards.checkRouts(this.type, user.role)) this.$router.replace('/admin')
+            
             this.data.ru.posts = []
             this.data.ua.posts = []
             
-            const user = this.$store.getters['user/getUser']
             const dataRu = {
                 session: user.session,
                 id: user.id,
@@ -104,7 +107,8 @@
                   }
               },
               tab: null,
-              slug: 'settings'
+              slug: 'settings',
+              type: 'setting'
           }
         },
         computed: {

@@ -48,12 +48,14 @@ import postMeta from '~/components/templates/meta/Game'
 import postRelative from '~/components/templates/relative/Game'
 import snackeBar from '~/components/templates/snackbar'
 import postPreview from '~/components/lib/MM_Post_Preview'
+ import Guards from '~/guards'
     export default {
         name: "singleGamePage",
         layout: 'admin',
         components: {commonEdit, postMeta, snackeBar, postRelative, postPreview},
         async mounted() {
             const user = this.$store.getters['user/getUser']
+            if(!Guards.checkRouts(this.type, user.role)) this.$router.replace('/admin')
             const data = {
                 session: user.session,
                 id: user.id,
@@ -72,7 +74,8 @@ import postPreview from '~/components/lib/MM_Post_Preview'
                 status: false,
                 text: 'Post Update',
                 timeout: 5000
-              }
+              },
+              type: 'game'
           }
         },
         methods: {

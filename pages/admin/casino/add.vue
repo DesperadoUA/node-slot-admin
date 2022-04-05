@@ -22,12 +22,15 @@
 
 <script>
 import commonAdd from '~/components/templates/commonAdd.vue'
+import Guards from '~/guards'
     export default {
         name: "singleCasinoAdd", 
         layout: 'admin',
         components: {commonAdd},
         mounted() {   
-           this.data.body = {
+          const user = this.$store.getters['user/getUser']
+          if(!Guards.checkRouts(this.type, user.role)) this.$router.replace('/admin')
+          this.data.body = {
                title:  '',
                status: 'hide',
                lang: 'ru',
@@ -50,7 +53,8 @@ import commonAdd from '~/components/templates/commonAdd.vue'
               data:{
                 body: undefined
               },
-              POST_TYPE: 'casino'
+              POST_TYPE: 'casino',
+              type: 'casino'
           }
         },
         methods: {

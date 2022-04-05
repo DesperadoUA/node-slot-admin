@@ -67,16 +67,18 @@ import MM_Image from '~/components/lib/MM_Image'
 import MM_Input from '~/components/lib/MM_Input'
 import MM_Rich_Text from '~/components/lib/MM_Rich_Text'
 import MM_Multiple_Two_Input_Image from '~/components/lib/MM_Multiple_Two_Input_Image'
-import MM_Multiple_Input_Text from '~/components/lib/MM_Multiple_Input_Text'
 import MM_Multiple_Menu from '~/components/lib/MM_Multiple_Menu.vue'
+import Guards from '~/guards'
+
     export default {
         name: "singleSettings",
         layout: 'admin',
         components: {snackeBar, MM_Image, MM_Input, MM_Rich_Text, MM_Multiple_Two_Input_Image, MM_Multiple_Menu},
         async mounted() {
-          this.data.title = 'Settings single page'
+            this.data.title = 'Settings single page'
           
             const user = this.$store.getters['user/getUser']
+            if(!Guards.checkRouts(this.type, user.role)) this.$router.replace('/admin')
             const data = {
                 session: user.session,
                 id: user.id,
@@ -84,7 +86,7 @@ import MM_Multiple_Menu from '~/components/lib/MM_Multiple_Menu.vue'
             }
             await this.$store.dispatch('settings/setCurrentPage', data)
             this.data = this.$store.getters['settings/getCurrentPage']
-            console.log(this.data)
+            
         },
         data(){
           return {
@@ -94,7 +96,8 @@ import MM_Multiple_Menu from '~/components/lib/MM_Multiple_Menu.vue'
                   text: 'Settings Update',
                   timeout: 5000
                 },
-              action: 'settings/changeStateCurrentPage'
+              action: 'settings/changeStateCurrentPage',
+              type: 'setting'
           }
         },
         methods: {

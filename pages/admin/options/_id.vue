@@ -45,12 +45,14 @@
 <script>
     import MM_Multiple_Input from '~/components/lib/MM_Multiple_Input'
     import snackeBar from '~/components/templates/snackbar'
+    import Guards from '~/guards'
     export default {
         name: "singleOptions",
         layout: 'admin',
         components: {snackeBar, MM_Multiple_Input},
         async mounted() {
             const user = this.$store.getters['user/getUser']
+            if(!Guards.checkRouts(this.type, user.role)) this.$router.replace('/admin')
             const data = {
                 session: user.session,
                 id: user.id,
@@ -58,7 +60,6 @@
             }
             await this.$store.dispatch('options/setCurrentPage', data)
             this.data = this.$store.getters['options/getCurrentPage']
-            console.log(this.data)
         },
         data(){
           return {
@@ -68,7 +69,8 @@
                   text: 'Options Update',
                   timeout: 5000
                 },
-                action: 'options/changeStateCurrentPage'
+              action: 'options/changeStateCurrentPage',
+              type: 'option'
           }
         },
         methods: {

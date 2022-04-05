@@ -16,20 +16,23 @@
 </template>
 
 <script>
-import optionsLoop from '~/components/templates/optionsLoop'
+  import optionsLoop from '~/components/templates/optionsLoop'
+  import Guards from '~/guards'
     export default {
-  components: { optionsLoop },
+        components: { optionsLoop },
         name: "options",
         layout: 'admin',
         component: {optionsLoop},
         data(){
           return {
               data: [],
-              slug: 'options'
+              slug: 'options',
+              type: 'option'
           }
         },
         async mounted(){
           const user = this.$store.getters['user/getUser']
+          if(!Guards.checkRouts(this.type, user.role)) this.$router.replace('/admin')
           const data = {
                 session: user.session,
                 id: user.id,

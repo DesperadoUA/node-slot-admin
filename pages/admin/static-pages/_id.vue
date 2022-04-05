@@ -27,12 +27,14 @@
 <script>
 import commonEditStaticPage from '~/components/templates/commonEditStaticPage'
 import snackeBar from '~/components/templates/snackbar'
+import Guards from '~/guards'
     export default {
         name: "singleStaticPage",
         layout: 'admin',
         components: {commonEditStaticPage, snackeBar},
         async mounted() {
             const user = this.$store.getters['user/getUser']
+            if(!Guards.checkRouts(this.type, user.role)) this.$router.replace('/admin')
             const data = {
                 session: user.session,
                 id: user.id,
@@ -50,7 +52,8 @@ import snackeBar from '~/components/templates/snackbar'
                   status: false,
                   text: 'Post Update',
                   timeout: 5000
-                }
+                },
+              type: 'page'
           }
         },
         methods: {

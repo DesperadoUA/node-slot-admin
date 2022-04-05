@@ -47,12 +47,14 @@ import adminCategoryRelative from '~/components/templates/adminCategoryRelative'
 import snackeBar from '~/components/templates/snackbar'
 import postMeta from '~/components/templates/meta/Category'
 import postPreview from '~/components/lib/MM_Post_Preview'
+import Guards from '~/guards'
     export default {
         name: "singleGameCategoryPage",
         layout: 'admin',
         components: {commonEdit, snackeBar, adminCategoryRelative, postMeta, postPreview},
         async mounted() {
             const user = this.$store.getters['user/getUser']
+            if(!Guards.checkRouts(this.type, user.role)) this.$router.replace('/admin')
             const data = {
                 session: user.session,
                 id: user.id,
@@ -72,7 +74,8 @@ import postPreview from '~/components/lib/MM_Post_Preview'
                 status: false,
                 text: 'Post Update',
                 timeout: 5000
-              }
+              },
+              type: 'game'
           }
         },
         methods: {

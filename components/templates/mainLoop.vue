@@ -44,19 +44,24 @@
 </template>
 
 <script>
+    import Guards from '~/guards'
     export default {
         name: "mainLoop",
         data(){
             return {
                 cards: [
-                    {title: 'Static Pages', thumbnail: 'https://admin.onlinecasino.ua/img/static_page.png', link: '/admin/static-pages'},
-                    {title: 'Settings', thumbnail: 'https://admin.onlinecasino.ua/img/settings.png', link: '/admin/settings'},
-                    {title: 'Options', thumbnail: 'https://admin.onlinecasino.ua/img/options.png', link: '/admin/options'},
-                    {title: 'Casino', thumbnail: 'https://admin.onlinecasino.ua/img/casino.png', link: '/admin/casino'},
-                    {title: 'Games', thumbnail: 'https://admin.onlinecasino.ua/img/slots.png', link: '/admin/game'}
+                    {title: 'Static Pages', thumbnail: 'https://admin.onlinecasino.ua/img/static_page.png', link: '/admin/static-pages', type: 'page'},
+                    {title: 'Settings', thumbnail: 'https://admin.onlinecasino.ua/img/settings.png', link: '/admin/settings', type: 'setting'},
+                    {title: 'Options', thumbnail: 'https://admin.onlinecasino.ua/img/options.png', link: '/admin/options', type: 'option'},
+                    {title: 'Casino', thumbnail: 'https://admin.onlinecasino.ua/img/casino.png', link: '/admin/casino', type: 'casino'},
+                    {title: 'Games', thumbnail: 'https://admin.onlinecasino.ua/img/slots.png', link: '/admin/game', type: 'game'}
                 ]
             }
         },
+        mounted(){
+          const user = this.$store.getters['user/getUser']
+          this.cards = Guards.checkLinks(this.cards, user.role)
+        }
     }
 </script>
 
