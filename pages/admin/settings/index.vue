@@ -68,7 +68,7 @@
         component: {OptionsLoop},
         async mounted() {
             const user = this.$store.getters['user/getUser']
-            if(!Guards.checkRouts(this.type, user.role)) this.$router.replace('/admin')
+            if(!Guards.checkRouts(this.guard, user.role)) this.$router.replace('/admin')
             
             this.data.ru.posts = []
             this.data.ua.posts = []
@@ -108,7 +108,7 @@
               },
               tab: null,
               slug: 'settings',
-              type: 'setting'
+              guard: 'setting'
           }
         },
         computed: {

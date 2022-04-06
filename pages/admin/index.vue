@@ -11,12 +11,12 @@
         components: {MainLoop},
         data(){
             return {
-              type: 'common',
+              guard: 'common',
             }
         },
         mounted(){
           const user = this.$store.getters['user/getUser']
-          if(!Guards.checkRouts(this.type, user.role)) this.$router.replace('/admin')
+          if(!Guards.checkRouts(this.guard, user.role)) this.$router.replace('/admin')
         }
     }
 </script>

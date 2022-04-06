@@ -52,7 +52,7 @@
         components: {snackeBar, MM_Multiple_Input},
         async mounted() {
             const user = this.$store.getters['user/getUser']
-            if(!Guards.checkRouts(this.type, user.role)) this.$router.replace('/admin')
+            if(!Guards.checkRouts(this.guard, user.role)) this.$router.replace('/admin')
             const data = {
                 session: user.session,
                 id: user.id,
@@ -70,7 +70,7 @@
                   timeout: 5000
                 },
               action: 'options/changeStateCurrentPage',
-              type: 'option'
+              guard: 'option'
           }
         },
         methods: {

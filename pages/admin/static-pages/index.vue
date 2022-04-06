@@ -85,7 +85,7 @@
 
         async mounted() {
             const user = this.$store.getters['user/getUser']
-            if(!Guards.checkRouts(this.type, user.role)) this.$router.replace('/admin')
+            if(!Guards.checkRouts(this.guard, user.role)) this.$router.replace('/admin')
             
             this.data.ru.posts = []
             this.data.ua.posts = []
@@ -130,7 +130,7 @@
               },
               tab: null,
               numnerPostOnPage: 8,
-              type: 'page'
+              guard: 'page'
           }
         },
         computed: {

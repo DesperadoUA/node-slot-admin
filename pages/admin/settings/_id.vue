@@ -78,7 +78,7 @@ import Guards from '~/guards'
             this.data.title = 'Settings single page'
           
             const user = this.$store.getters['user/getUser']
-            if(!Guards.checkRouts(this.type, user.role)) this.$router.replace('/admin')
+            if(!Guards.checkRouts(this.guard, user.role)) this.$router.replace('/admin')
             const data = {
                 session: user.session,
                 id: user.id,
@@ -97,7 +97,7 @@ import Guards from '~/guards'
                   timeout: 5000
                 },
               action: 'settings/changeStateCurrentPage',
-              type: 'setting'
+              guard: 'setting'
           }
         },
         methods: {
