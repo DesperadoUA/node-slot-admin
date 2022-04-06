@@ -2,15 +2,15 @@
   <div>
      <commonEdit v-if='data.body' 
                      :data = "data.body"
-                     :action = 'POST_TYPE + "/changeStateCurrentPost"'>
+                     :action = 'STORE_DIR + "/changeStateCurrentPost"'>
     </commonEdit>
      <postMeta v-if='data.body' 
                      :data = "data.body"
-                     :action = 'POST_TYPE + "/changeStateCurrentPost"'>
+                     :action = 'STORE_DIR + "/changeStateCurrentPost"'>
     </postMeta>
     <adminCategoryRelative v-if='data.body' 
                      :data = "data.body"
-                     :action = 'POST_TYPE + "/changeStateCurrentPost"'> 
+                     :action = 'STORE_DIR + "/changeStateCurrentPost"'> 
     </adminCategoryRelative>
     <v-container>
         <v-row>
@@ -54,18 +54,18 @@ import Guards from '~/guards'
         components: {commonEdit, snackeBar, adminCategoryRelative, postMeta, postPreview},
         async mounted() {
             const user = this.$store.getters['user/getUser']
-            if(!Guards.checkRouts(this.type, user.role)) this.$router.replace('/admin')
+            if(!Guards.checkRouts(this.guard, user.role)) this.$router.replace('/admin')
             const data = {
                 session: user.session,
                 id: user.id,
                 url: this.$route.params.id
             }
-            await this.$store.dispatch(this.POST_TYPE + '/setCurrentPost', data)
-            this.data.body = this.$store.getters[this.POST_TYPE + '/getCurrentPost']
+            await this.$store.dispatch(this.STORE_DIR + '/setCurrentPost', data)
+            this.data.body = this.$store.getters[this.STORE_DIR + '/getCurrentPost']
         },
         data(){
           return {
-              POST_TYPE: 'casino_category',
+              STORE_DIR: 'casino/category',
               PATH_CATEGORY: 'casino/category',
               data:{
                 body: undefined
@@ -75,7 +75,7 @@ import Guards from '~/guards'
                 text: 'Post Update',
                 timeout: 5000
               },
-              type: 'casino'
+              guard: 'casino'
           }
         },
         methods: {
@@ -84,9 +84,9 @@ import Guards from '~/guards'
             const data = {
                 session: user.session,
                 id: user.id,
-                data: this.$store.getters[this.POST_TYPE + '/getCurrentPost']
+                data: this.$store.getters[this.STORE_DIR + '/getCurrentPost']
             }
-            await this.$store.dispatch(this.POST_TYPE + '/updateCurrentPost', data)
+            await this.$store.dispatch(this.STORE_DIR + '/updateCurrentPost', data)
             this.snackbar.status = true
             setTimeout(()=>{
               this.snackbar.status = false  
@@ -99,8 +99,8 @@ import Guards from '~/guards'
                   id: user.id,
                   data: this.$route.params.id
               }
-              await this.$store.dispatch(this.POST_TYPE + '/deleteCurrentPost', data)
-              const confirmDelete = this.$store.getters[this.POST_TYPE + '/getConfirmDelete']
+              await this.$store.dispatch(this.STORE_DIR + '/deleteCurrentPost', data)
+              const confirmDelete = this.$store.getters[this.STORE_DIR + '/getConfirmDelete']
               if(confirmDelete) this.$router.push('/admin/' + this.PATH_CATEGORY)
           }
         }
