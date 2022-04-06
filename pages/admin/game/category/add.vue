@@ -2,7 +2,7 @@
   <div>
    <commonAdd   v-if = 'data.body' 
                 :data = "data.body"
-                :action = 'POST_TYPE + "/changeStateNewPost"'></commonAdd>
+                :action = 'STORE_DIR + "/changeStateNewPost"'></commonAdd>
     <v-container>
         <v-row>
           <v-col class="offset-1 col-10 mt-5 mb-10">
@@ -29,7 +29,7 @@ import Guards from '~/guards'
         components: {commonAdd},
         mounted() {   
           const user = this.$store.getters['user/getUser']
-          if(!Guards.checkRouts(this.type, user.role)) this.$router.replace('/admin')
+          if(!Guards.checkRouts(this.guard, user.role)) this.$router.replace('/admin')
           this.data.body = {
                title:  '',
                status: 'hide',
@@ -46,16 +46,16 @@ import Guards from '~/guards'
                created_at: new Date().toJSON().slice(0,10),
                thumbnail: ''
            }
-           this.$store.dispatch(this.POST_TYPE + '/setNewPost', this.data.body)
+           this.$store.dispatch(this.STORE_DIR + '/setNewPost', this.data.body)
         },
         data(){
           return {
               data:{
                 body: undefined
               },
-              POST_TYPE: 'game_category',
+              STORE_DIR: 'game/category',
               PATH_CATEGORY: 'game/category',
-              type: 'game'
+              guard: 'game'
           }
         },
         methods: {
@@ -64,11 +64,11 @@ import Guards from '~/guards'
             const data = {
                 session: user.session,
                 id: user.id,
-                data: this.$store.getters[this.POST_TYPE + '/getNewPost']
+                data: this.$store.getters[this.STORE_DIR + '/getNewPost']
             }
             if(data.data.title !== '') {
-                await this.$store.dispatch(this.POST_TYPE + '/addNewPost', data)
-                const insertId = this.$store.getters[this.POST_TYPE + '/getInsertId']
+                await this.$store.dispatch(this.STORE_DIR + '/addNewPost', data)
+                const insertId = this.$store.getters[this.STORE_DIR + '/getInsertId']
                 if(insertId !== '') this.$router.push(`/admin/${this.PATH_CATEGORY}/${insertId}`)
             } 
             else {
